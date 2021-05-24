@@ -19,7 +19,7 @@ for idx in range(10):
 """
 
 code2 = """
-a = 1
+print(__var)
 """
 
 root = ast.parse(code2)
