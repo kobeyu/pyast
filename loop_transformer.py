@@ -3,9 +3,8 @@ import sys
 import astunparse
 
 code = """
-
 for idx in range(10):
-    gg = idx
+    i  = idx
 """
 
 def print_ast(root):
@@ -28,13 +27,13 @@ class ForLoopRewriter(ast.NodeTransformer):
     def visit_For(self, node):
         # redirect the assignment to a usually invalid variable name so it
         # doesn't clash with other variables in the code
-        target = ast.Name('_loop_var', ast.Store())
+        target = ast.Name('_loop_var0', ast.Store())
 
         # insert the new nodes
         loop_body = self.nodes_to_insert.copy()
 
         # then reassign the loop variable to the actual target
-        reassign = ast.Assign([node.target], ast.Name('_loop_var', ast.Load()))
+        reassign = ast.Assign([node.target], ast.Name('_loop_var0', ast.Load()))
         loop_body.append(reassign)
 
         # visit all the ast nodes in the loop body
